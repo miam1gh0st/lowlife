@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style>
+        a:link{color:rgb(247, 27, 27);}
+        a:visited{color:rgb(39, 183, 231);}
+        a:hover{color:rgb(93, 241, 34);}
+        a:active{color:black}
+    </style>
+<style>
+    .hdbchjsg{
+        position: absolute;
+        border: #000000 solid;
+        border-width: 5px;
+        width:600px;
+        height:500px;
+        left:30%;
+        top:20%;
+        margin-left:auto;
+        margin-top: auto;
+        border-radius: 25px 25px 25px 25px; 
+    }
+</style>
+<style>
+    .small{
+       border:#df1919 solid;
+       border-width: 2px;
+       border-radius: 25px 25px 25px 25px; 
+    }
+</style>
+<body>
+    <div class = "hdbchjsg">
+    <h1  style="text-align: center;">注册</h1>
+    <form>
+        <table style="margin-left: auto;margin-right: auto;line-height: 2em;">
+            <!-- 第一行 -->
+            <tr>
+                <td>用户名：</td>
+                <td ><input type="text" value="123" class="small"></td>
+            </tr>
+            <!-- 第二行 -->
+            <tr>
+                <td>密码：</td>
+                <td ><input type="text"class="small"></td>
+            </tr>
+            <!-- 第三行 -->
+            <tr>
+                <td>密码确认：</td>
+                <td ><input type="text"class="small"></td>
+            </tr>
+            <!-- 第四行 -->
+            <tr>
+                <td>性别：</td>
+                <td>
+                    <input type="radio" name="sex"> 男
+                    <input type="radio" name="sex"> 女
+                </td>
+            </tr>
+            <!-- 第五行 -->
+            <tr>
+                <td>兴趣爱好：</td>
+                <td>
+                    <input type="checkbox" name="like">体育
+                    <input type="checkbox" name="like">音乐
+                    <input type="checkbox" name="like">军事
+                </td>
+            </tr>
+            <!-- 第六行 -->
+            <tr>
+                <td>个人主页</td>
+                <td>
+                    <a href="http://jwxt.nit.net.cn/">个人主页</a>
+                </td>
+            </tr>
+            <!-- 第七行 -->
+            <tr>
+                <td>联系方式：</td>
+                <td ><input type="text" class="small"></td>
+            </tr>
+            <!-- 第八行 -->
+            <tr>
+                <td></td>
+                <td ><select class="small">
+                <option>请选择所在省份</option>
+                <option>浙江</option>
+            </select></td>
+            </tr>
+            <!-- 第九行 -->
+            <tr>
+                <td></td>
+                <td >
+                    <input type="reset" value="重置" class="small">
+                    <input type="submit" value="提交"class="small">
+                </td>
+
+            </tr>
+        </table>
+    </form>    
+</div>
+</body>
+
+</html>
