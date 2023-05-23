@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>实验十一</title>
+	<style>
+	  label {    
+	    display: inline-block;
+	    width: 100px;
+	    text-align: right;
+	    margin-right: 10px;
+	  }
+	
+	  <input type="password"> {   //输入框
+	    border: 1px solid #ccc;
+	    padding: 5px;
+	  }
+	
+	  button {   //按钮  
+	    margin-top: 15px;
+		margin-left: 30px;
+	    padding: 5px 20px;
+	    background-color: #4aaf10;
+	    color: #fff;
+	    border: none;
+	    border-radius: 3px;
+	    cursor: pointer;
+	  }
+	  .title{   //标题的内容
+		  margin-top: -10px;
+		  padding-left: 110px;
+	  }
+	  div{
+		  margin-top: 5px;
+	  }
+	  .y{ 
+		  margin-bottom: 10px;
+	  }
+	  .all{  
+		  position: relative;
+		  top:120px;
+		  border-radius: 25px;
+		  background-color: beige;
+		  width: 320px;
+		  border: 2px solid black;
+		  padding: 30px;
+		  margin: 0 auto;
+	  }
+	  #a{
+		  margin-top: 15px;
+		  margin-left: 30px;
+		  padding: 5px 20px;
+		  background-color: #4aaf10;
+		  color: #fff;
+		  border: none;
+		  border-radius: 3px;
+		  cursor: pointer;
+	  }
+	  .qq{
+		  margin-left: 30px;
+	  }
+	</style>
+  <script src="vue.global.js"></script>
+  </head>
+  <body>
+	  
+	  <div class="all">
+	  <div class="title"> <h2>注册信息</h2></div>
+	   <form id="registration-form">
+	     <div>
+	       <label for="username">用户姓名:</label>
+	       <input type="text" id="username" v-model="username" required>
+	     </div>
+	     <div>
+	       <label for="password1">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</label>
+	       <input type="password" id="password1" v-model="password" required>
+	     </div>
+	  	  <div class="qq">
+	  		  身&nbsp;&nbsp;份&nbsp;&nbsp;证：<input type="text" id="idcard" name="idcard" v-model="id"  required/>
+	  	  </div>
+	  	  <div class="qq">
+	  		  性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+	  		  <input type="radio" id="male"  value="男" v-model="radioBox">男
+	  		  <input type="radio" id="female"  value="女" v-model="radioBox">女
+	  	  </div>
+	  	  <span class="idcheck"></span>
+	  	  <br />
+	  	  <span id="birthday"></span>
+	  	  <br />
+	  	  请选择所在省份：
+	  	  <select id="provinces"></select>
+	  	  <br/>
+	  	  请选择所在城市：
+	  	  <select id="cities"></select>
+	  	  <br />
+	     <button type="submit" @click.prevent="submitForm">提交</button>
+	  	  <button type="reset" id="a" >重置</button>
+	   </form>
+	   <div id="result"></div>
+	  </div>
+	  
+	<script>
+	     const form = document.getElementById("registration-form");
+	     const resultDiv = document.getElementById("result");
+	     const idcheck=document.querySelector(".idcheck");
+		  const idCardInput = document.getElementById("idcard");
+		  const maleRadio = document.getElementById("male");
+		  const femaleRadio = document.getElementById("female");
+		  const birth=document.getElementById("birthday"); 
+		  
+		  const provinces = [
+			  {
+			    name: '  ',
+			    cities: ['  ']
+			  },
+		    {
+		      name: '北京市',
+		      cities: ['北京市']
+		    },
+		    {
+		      name: '福建省',
+		      cities: ['福州市', '厦门市', '泉州市', '莆田市', '漳州市', '宁德市', '南平市', '三明市', '龙岩市']
+		    },
+		    {
+		      name: '天津市',
+		      cities: ['天津市']
+		    },
+		    {
+		      name: '重庆市',
+		      cities: ['重庆市']
+		    },
+		    {
+		      name: '广东省',
+		      cities: ['广州市', '深圳市', '珠海市', '汕头市', '韶关市']
+		    },
+		    {
+		      name: '河南省',
+		      cities: ['郑州市', '开封市', '洛阳市', '平顶山市', '安阳市']
+		    },
+			
+		    // ...... 其他省份以此类推
+		  ];
+		  
+		  const provincesSelect = document.getElementById('provinces');
+		  const citiesSelect = document.getElementById('cities');
+		  
+		  provinces.forEach(function(province, index) {      //省市联动
+		    const option = document.createElement('option');
+		    option.value = province.name;
+		    option.textContent = province.name;
+		    if (index === 0) {
+		      option.selected = true;
+		      generateCities(province);
+		    }
+		    provincesSelect.appendChild(option);
+		  });
+		  
+		  provincesSelect.addEventListener('change', function() {
+		    const index = this.selectedIndex;
+		    const selectedProvince = provinces[index];
+		    generateCities(selectedProvince);
+		  });
+		  
+		  function generateCities(province) {
+		    citiesSelect.innerHTML = '';
+		    province.cities.forEach(function(city) {
+		      const option = document.createElement('option');
+		      option.value = city;
+		      option.textContent = city;
+		      citiesSelect.appendChild(option);
+		    });
+		  }
+		  
+	    idCardInput.addEventListener('change', function() {  //通过身份证自动选择性别
+	      const idCard = this.value;
+	      const genderCode = idCard.charAt(idCard.length - 2);
+	      if (genderCode % 2 === 0) {
+	        femaleRadio.checked = true;
+	      } else {
+	        maleRadio.checked = true;
+	      }
+	    });
+		 
+		 
+	    
+		 function checkIDNumber() {
+		 		 //判断身份证是否合法
+		 		 const idNumber=document.getElementById("idcard").value;
+		   if (!( /^[1-9]\d{5}(19\d{2}|20[01]\d)(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}[0-9xX]$/.test(idNumber))) {
+		 		   idcheck.textContent = "身份证不合法";
+		 		   idcheck.style.color = "red";
+		     return false;
+		   }
+		 
+		   idcheck.textContent = "身份证合法";
+		   idcheck.style.color = "green";
+		   return true;
+		 }
+	     
+		  function birthdayinput(){
+			   const idnumber=document.getElementById("idcard").value;
+			   const birthdayStr = idnumber.substring(6, 14);
+			   const year = birthdayStr.substring(0, 4);
+			   const month = birthdayStr.substring(4, 6);
+			   const day = birthdayStr.substring(6, 8);
+			    birth.textContent = "生日："+year+month+day;
+		  }
+		  
+		  document.getElementById("idcard").addEventListener("input",birthdayinput);
+		  document.getElementById("idcard").addEventListener("input", checkIDNumber);
+	     document.getElementById("password1").addEventListener("input", checkPasswordStrength);
+		  
+	   </script>  
+	  
+		
+   <script>
+   export default {
+     data() {
+       return {
+         username: '',
+         password: '',
+		 radioBox:'',
+		 id:''
+       }
+     },
+     methods: {
+       submitForm() {
+         // 这里可以添加表单提交逻辑
+         console.log('提交表单:');
+       }
+     }
+   }
+   </script>
+  </body>
+</html>
+
