@@ -1,2 +1,2 @@
-# lowlife
-now it's a demo for my github study
+# newlife
+A demo for my github learning :D
